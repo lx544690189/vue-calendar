@@ -5,6 +5,11 @@
 - [ ] 设定日期范围、设定不可选日期
 - [ ] 手势切换
 - [ ] npm
+
+## 参考
+- [framework7](https://github.com/nolimits4web/Framework7)
+- [mint-ui](https://github.com/ElemeFE/mint-ui/)
+
 ## Build Setup
 
 ``` bash
