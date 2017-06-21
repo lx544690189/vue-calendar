@@ -26,18 +26,18 @@ npm run build
     @onChange="dateChange">
 </calendar>
 ```
-#### Attributes
+## Attributes
 
 参数 | 说明 | 类型 | 默认值
 ---|--- | --- | ---
 v-model | 显示/隐藏日期组件 | Boolean | false
 format | 日期格式化 | String | "yyyy-MM-dd"
 
-#### Events
+## Events
 
 事件名称 | 说明 | 	回调参数
 ---|--- | --- | ---
-onChange | 当改变所选日期 |date,formatDate
+onChange | 当改变所选日期 | date,formatDate
 
 ## 总结
 -   相关知识：node、npm、es6、Vue组件、transform、Date相关api、移动端手势操作；
