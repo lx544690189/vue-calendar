@@ -2,7 +2,43 @@
 仿framework7日历控件，实现包括滑动手势来切换月份
 - [x] ui
 - [x] 基本操作
+- [ ] 设定日期范围、设定不可选日期
 - [ ] 手势切换
+- [ ] npm
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8081
+npm run dev
+
+# build for production with minification
+npm run build
+```
+## 使用
+
+```
+<calendar
+    v-model="calendarShow"
+    format="yy-MM-dd"
+    @onChange="dateChange">
+</calendar>
+```
+#### Attributes
+
+参数 | 说明 | 类型 | 默认值
+---|--- | --- | ---
+v-model | 显示/隐藏日期组件 | Boolean | false
+format | 日期格式化 | String | "yyyy-MM-dd"
+
+#### Events
+
+事件名称 | 说明 | 	回调参数
+---|--- | --- | ---
+onChange | 当改变所选日期 |date,formatDate
+
 ## 总结
 -   相关知识：node、npm、es6、Vue组件、transform、Date相关api、移动端手势操作；
 -   思路：页面始终存在三个月份的模板，始终显示中间那个月的，通过transform位移来达到切换动画效果，在动画结束后重新生成模板（将当前月份置于中间）；

@@ -3,7 +3,7 @@
 		<button @click="initCalendar">打开calendar</button>
 		<calendar
 			v-model="calendarShow"
-			format="yy-MM-dd"
+			format="yyyy-MM-dd"
 			@onChange="dateChange">
 		</calendar>
 		<div>
@@ -28,7 +28,7 @@
 			initCalendar() {
 				this.calendarShow = !this.calendarShow;
 			},
-			dateChange(calendar,date,formatDate){
+			dateChange(date,formatDate){
 				this.date = formatDate;
 				//console.log(date)
 			}

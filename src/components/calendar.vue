@@ -235,7 +235,7 @@
 						this.selectedDate.year = this.currentViewMonth.year;
 					}
 					let date = new Date(this.selectedDate.year,this.selectedDate.month - 1,this.selectedDate.day);
-					this.$emit('onChange', this,this.selectedDate,dateFormat(date,this.format));
+					this.$emit('onChange', date,dateFormat(date,this.format));
 				}
 			},
 			//移除已选择日期
