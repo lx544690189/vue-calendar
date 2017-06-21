@@ -13,11 +13,11 @@
 						</a>
 					</div>
 					<div class="calendar-year-picker">
-						<a href="#" class="calendar-prev">
+						<a href="#" class="calendar-prev" @click="handelYearClick('pre')">
 							<div class="pre-img"></div>
 						</a>
 						<div class="current-year-value">{{ currentViewMonth.year }}</div>
-						<a href="#" class="calendar-next">
+						<a href="#" class="calendar-next" @click="handelYearClick('next')">
 							<div class="next-img"></div>
 						</a>
 					</div>
@@ -145,7 +145,6 @@
 				this.dateObj.current= getAllDayInMonth(year,month);
 				this.dateObj.next = getAllDayInMonth(month==12?year+1:year,month==12?1:month+1);
 				this.assignSelectedDate();
-				//console.log(this.dateObj)
 			},
 			//判断过度动画是否结束
 			isTranslateEnd(){
@@ -188,6 +187,27 @@
 					},430)
 				}
 			},
+			//年份切换
+			handelYearClick(action){
+				if(!this.isTranslateEnd())return;
+				this.translateTime = new Date();
+				if(action == "pre"){
+					this.translateX += 100;
+					this.currentViewMonth.year--;
+					setTimeout(()=>{
+						this.translateX_parent -= 100;
+						this.createdDate();
+					},430)
+				}
+				if(action == "next"){
+					this.translateX -= 100;
+					this.currentViewMonth.year++;
+					setTimeout(()=>{
+						this.translateX_parent += 100;
+						this.createdDate();
+					},430)
+				}
+			},
 			//日期选择
 			handelDayClick(col, col_index){
 				if(!this.isTranslateEnd())return;
@@ -212,15 +232,15 @@
 					}
 				}
 			},
-			//设定日期
+			//设定已选日期
 			assignSelectedDate(){
 				for(let key in this.dateObj){
 					for(let row in this.dateObj[key].allDay_list){
 						for(let col in this.dateObj[key].allDay_list[row]){
-							let year = this.dateObj[key].year;
-							let month = this.dateObj[key].month;
-							let day = this.dateObj[key].allDay_list[row][col].value;
-							let index = row*7 + parseInt(col);
+							let year = this.dateObj[key].year,
+								month = this.dateObj[key].month,
+								day = this.dateObj[key].allDay_list[row][col].value,
+								index = row*7 + parseInt(col);
 							if(index < this.dateObj[key].start){
 								year = month==1?year - 1:year;
 								month = month==1?12:month - 1;
