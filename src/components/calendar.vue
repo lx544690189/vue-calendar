@@ -35,8 +35,8 @@
 							<div class="calendar-month-row" v-for="(row, row_index) in dateObj.pre.allDay_list">
 								<div class="calendar-day"
 									v-for="(col, col_index) in row"
-									@click="handelDayClick(col, col_index)"
-									:class="{'grey':row_index*7+col_index<dateObj.pre.start || row_index*7+col_index>dateObj.pre.end ,'selected':col.selected }">
+									@click="handelDayClick(col,col_index,dateObj.pre.start,dateObj.pre.end)"
+									:class="{'grey':row_index*7+row_index*7+col_index<dateObj.pre.start || row_index*7+col_index>dateObj.pre.end ,'selected':col.selected }">
 									<span>
 										{{ col.value }}
 									</span>
@@ -48,7 +48,7 @@
 							<div class="calendar-month-row" v-for="(row, row_index) in dateObj.current.allDay_list">
 								<div class="calendar-day"
 									v-for="(col, col_index) in row"
-									@click="handelDayClick(col, col_index)"
+									@click="handelDayClick(col,row_index*7+col_index,dateObj.current.start,dateObj.current.end)"
 									:class="{'grey':row_index*7+col_index<dateObj.current.start || row_index*7+col_index>dateObj.current.end ,'selected':col.selected }">
 									<span>
 										{{ col.value }}
@@ -61,7 +61,7 @@
 							<div class="calendar-month-row" v-for="(row, row_index) in dateObj.next.allDay_list">
 								<div class="calendar-day"
 									v-for="(col, col_index) in row"
-									@click="handelDayClick(col, col_index)"
+									@click="handelDayClick(col,row_index*7+col_index,dateObj.next.start,dateObj.next.end)"
 									:class="{'grey':row_index*7+col_index<dateObj.next.start || row_index*7+col_index>dateObj.next.end ,'selected':col.selected }">
 									<span>
 										{{ col.value }}
@@ -83,6 +83,10 @@
 			value: {
 				type: Boolean,
 				default: false
+			},
+			format: {
+				type: String,
+				default: "yyyy-MM-dd"
 			},
 			defaultDate: {
 				type: Date,
@@ -157,8 +161,8 @@
 				return true;
 			},
 			//月份切换
-			handelMonthClick(action){
-				if(!this.isTranslateEnd())return;
+			handelMonthClick(action,translateCheck){
+				if(translateCheck&&!this.isTranslateEnd())return;
 				this.translateTime = new Date();
 				if(action == "pre"){
 					this.translateX += 100;
@@ -189,7 +193,7 @@
 			},
 			//年份切换
 			handelYearClick(action){
-				if(!this.isTranslateEnd())return;
+				//if(!this.isTranslateEnd())return;
 				this.translateTime = new Date();
 				if(action == "pre"){
 					this.translateX += 100;
@@ -209,7 +213,7 @@
 				}
 			},
 			//日期选择
-			handelDayClick(col, col_index){
+			handelDayClick(col,index,start, end){
 				if(!this.isTranslateEnd())return;
 				this.translateTime = new Date();
 				this.open = false;
@@ -217,7 +221,21 @@
 					this.removeSelectedDate();
 					col.selected = true;
 					this.selectedDate.day = col.value;
-					this.$emit('onChange', this,this.selectedDate);
+					console.log(this.currentViewMonth.month)
+					if(index+1 <= start){
+						this.selectedDate.month = this.currentViewMonth.month==1?12:this.currentViewMonth.month-1;
+						this.selectedDate.year = this.currentViewMonth.month==1?this.currentViewMonth.year-1:this.currentViewMonth.year;
+						this.handelMonthClick("pre",false)
+					}else if(index > end){
+						this.selectedDate.month = this.currentViewMonth.month==12?1:this.currentViewMonth.month+1;
+						this.selectedDate.year = this.currentViewMonth.month==12?this.currentViewMonth.year+1:this.currentViewMonth.year;
+						this.handelMonthClick("next",false)
+					}else{
+						this.selectedDate.month = this.currentViewMonth.month;
+						this.selectedDate.year = this.currentViewMonth.year;
+					}
+					let date = new Date(this.selectedDate.year,this.selectedDate.month - 1,this.selectedDate.day);
+					this.$emit('onChange', this,this.selectedDate,dateFormat(date,this.format));
 				}
 			},
 			//移除已选择日期
@@ -290,6 +308,19 @@
 			allDay_list.push(item)
 		}
 		return {allDay_list,start,end,year,month};
+	}
+	
+	function dateFormat(date,fmt) {
+		var o = {
+			"M+": date.getMonth() + 1,
+			"d+": date.getDate()
+		};
+		if(/(y+)/.test(fmt))
+			fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for(var k in o)
+			if(new RegExp("(" + k + ")").test(fmt))
+				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		return fmt;
 	}
 </script>
 

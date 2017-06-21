@@ -1,11 +1,13 @@
 <template>
 	<div id="app">
 		<button @click="initCalendar">打开calendar</button>
-		<calendar v-model="calendarShow"
+		<calendar
+			v-model="calendarShow"
+			format="yy-MM-dd"
 			@onChange="dateChange">
 		</calendar>
 		<div>
-			{{ date.year }} - {{ date.month }} - {{ date.day }}
+			{{ date }}
 		</div>
 	</div>
 </template>
@@ -16,7 +18,7 @@
 		data() {
 			return {
 				calendarShow: false,
-				date:{}
+				date:""
 			}
 		},
 		created() {
@@ -26,8 +28,8 @@
 			initCalendar() {
 				this.calendarShow = !this.calendarShow;
 			},
-			dateChange(calendar,date){
-				this.date = date;
+			dateChange(calendar,date,formatDate){
+				this.date = formatDate;
 				//console.log(date)
 			}
 		}
