@@ -221,7 +221,6 @@
 					this.removeSelectedDate();
 					col.selected = true;
 					this.selectedDate.day = col.value;
-					console.log(this.currentViewMonth.month)
 					if(index+1 <= start){
 						this.selectedDate.month = this.currentViewMonth.month==1?12:this.currentViewMonth.month-1;
 						this.selectedDate.year = this.currentViewMonth.month==1?this.currentViewMonth.year-1:this.currentViewMonth.year;
