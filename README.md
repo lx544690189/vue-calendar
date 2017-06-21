@@ -36,7 +36,7 @@ format | 日期格式化 | String | "yyyy-MM-dd"
 ## Events
 
 事件名称 | 说明 | 	回调参数
----|--- | --- | ---
+---|--- | ---
 onChange | 当改变所选日期 | date,formatDate
 
 ## 总结
