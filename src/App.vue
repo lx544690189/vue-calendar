@@ -4,11 +4,11 @@
 		<calendar
 			v-model="calendarShow"
 			format="yyyy-MM-dd"
-			:defaultDate="new Date()"
+			:defaultDate="defaultDate"
 			@onChange="dateChange">
 		</calendar>
 		<div>
-			{{ date }}
+			{{ selectedDate }}
 		</div>
 	</div>
 </template>
@@ -19,7 +19,8 @@
 		data() {
 			return {
 				calendarShow: false,
-				date:""
+				defaultDate:new Date(),
+				selectedDate:""
 			}
 		},
 		methods: {
@@ -27,7 +28,7 @@
 				this.calendarShow = !this.calendarShow;
 			},
 			dateChange(date,formatDate){
-				this.date = formatDate;
+				this.selectedDate = formatDate;
 				console.log(date)
 			}
 		}

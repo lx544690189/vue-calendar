@@ -154,10 +154,22 @@
 							year:parseInt(dateArray[0]),
 							month:parseInt(dateArray[1]),
 							day:parseInt(dateArray[2])
-						}
+						};
+						this.currentViewMonth = {
+							year:parseInt(dateArray[0]),
+							month:parseInt(dateArray[1]),
+							day:parseInt(dateArray[2])
+						};
 					}else{
 						console.error("error parameter of defaultDate!")
 					}
+				}else{
+					let dateArray = dateFormat(new Date(),"yyyy-MM-dd").split("-");
+					this.currentViewMonth = {
+						year:parseInt(dateArray[0]),
+						month:parseInt(dateArray[1]),
+						day:parseInt(dateArray[2])
+					};
 				}
 				if(!this.month instanceof Array || !this.week instanceof Array || this.month.length != 12 || this.week.length != 7){
 					console.error("error parameter of month or week!")
