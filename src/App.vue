@@ -4,6 +4,7 @@
 		<calendar
 			v-model="calendarShow"
 			format="yyyy-MM-dd"
+			:defaultDate="new Date()"
 			@onChange="dateChange">
 		</calendar>
 		<div>
@@ -21,16 +22,13 @@
 				date:""
 			}
 		},
-		created() {
-			
-		},
 		methods: {
 			initCalendar() {
 				this.calendarShow = !this.calendarShow;
 			},
 			dateChange(date,formatDate){
 				this.date = formatDate;
-				//console.log(date)
+				console.log(date)
 			}
 		}
 	}

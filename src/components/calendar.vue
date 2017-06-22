@@ -90,16 +90,24 @@
 			},
 			defaultDate: {
 				type: Date,
-        		default() {
-    				return new Date();
-    			}
+        		default:null
+			},
+			month: {
+				type: Array,
+        		default:function(){
+        			return ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+        		}
+			},
+			week: {
+				type: Array,
+        		default:function(){
+        			return ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+        		}
 			}
 		},
 		data() {
 			return {
 				open:false,
-				month: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-				week: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
 				dateObj: {
 					pre:{},
 					current:{},
@@ -114,9 +122,9 @@
 					day:1
 				},
 				selectedDate:{
-					year:2017,
-					month:6,
-					day:1
+					year:null,
+					month:null,
+					day:null
 				}
 			}
 		},
@@ -139,6 +147,21 @@
 		methods: {
 			//初始化
 			init(){
+				if(this.defaultDate){
+					if(this.defaultDate instanceof Date){
+						let dateArray = dateFormat(this.defaultDate,"yyyy-MM-dd").split("-");
+						this.selectedDate = {
+							year:parseInt(dateArray[0]),
+							month:parseInt(dateArray[1]),
+							day:parseInt(dateArray[2])
+						}
+					}else{
+						console.error("error parameter of defaultDate!")
+					}
+				}
+				if(!this.month instanceof Array || !this.week instanceof Array || this.month.length != 12 || this.week.length != 7){
+					console.error("error parameter of month or week!")
+				}
 				this.createdDate();
 			},
 			//创建日期
