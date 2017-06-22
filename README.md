@@ -1,11 +1,11 @@
 # VUE组件-日期选择器（移动端）
 仿framework7日历控件，实现包括滑动手势来切换月份
 
-![image](../screenshot/screenshot.png)
+![image](https://github.com/lx544690189/vue-calendar/blob/master/screenshot/screenshot.png)
 
 [demo](http://note.youdao.com/) 请使用手机扫描二维码查看
 
-![image](../screenshot/QRcode.png)
+![image](https://github.com/lx544690189/vue-calendar/blob/master/screenshot/QRcode.png)
 
 - [x] ui
 - [x] 基本操作
