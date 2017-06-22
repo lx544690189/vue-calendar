@@ -423,7 +423,13 @@
 	}
 	
 	.current-month-value,.current-year-value{
-		min-width: 60px;
+		width: 70px;
+		-webkit-flex-shrink: 1;
+	    -ms-flex: 0 1 auto;
+	    flex-shrink: 1;
+	    position: relative;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
 	}
 	
 	.calendar-prev,
@@ -482,6 +488,13 @@
 		width: -webkit-calc(100% / 7);
 		width: calc(100% / 7);
 		line-height: 20px;
+		-webkit-flex-shrink: 1;
+	    -ms-flex: 0 1 auto;
+	    flex-shrink: 1;
+	    position: relative;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    padding: 0 5px;
 	}
 	
 	.calendar-month{
