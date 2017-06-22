@@ -3,8 +3,8 @@
 
 [demo](http://note.youdao.com/) 请使用手机扫描二维码查看
 
-<img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/screenshot.png"  width="200"/>
-<img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/QRcode.png" width="300"/>
+<img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/screenshot.png" width="200" float="left"/>
+<img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/QRcode.png" width="300" float="left"/>
 
 - [x] ui
 - [x] 基本操作
