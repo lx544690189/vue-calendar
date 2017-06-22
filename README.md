@@ -1,5 +1,12 @@
 # VUE组件-日期选择器（移动端）
 仿framework7日历控件，实现包括滑动手势来切换月份
+
+![image](../screenshot/screenshot.png)
+
+[demo](http://note.youdao.com/) 请使用手机扫描二维码查看
+
+![image](../screenshot/QRcode.png)
+
 - [x] ui
 - [x] 基本操作
 - [ ] 设定日期范围、设定不可选日期
@@ -27,7 +34,6 @@ npm run build
 ```
 <calendar
     v-model="calendarShow"
-    format="yy-MM-dd"
     @onChange="dateChange">
 </calendar>
 ```
@@ -37,12 +43,15 @@ npm run build
 ---|--- | --- | ---
 v-model | 显示/隐藏日期组件 | Boolean | false
 format | 日期格式化 | String | "yyyy-MM-dd"
+defaultDate | 默认已选日期 | Date | new Date()
+month | 月份文本 | Array | ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+week | 星期文本 | Array | ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
 
 ## Events
 
 事件名称 | 说明 | 	回调参数
 ---|--- | ---
-onChange | 当改变所选日期 | date,formatDate
+onChange | 当改变所选日期 | (date,formatDate)
 
 ## 总结
 -   相关知识：node、npm、es6、Vue组件、transform、Date相关api、移动端手势操作；
@@ -52,8 +61,6 @@ onChange | 当改变所选日期 | date,formatDate
 > **单向数据流**
 > - prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。这是为了防止子组件无意修改了父组件的状态——这会让应用的数据流难以理解。
 > -  另外，每次父组件更新时，子组件的所有 prop 都会更新为最新值。这意味着你不应该在子组件内部改变 prop 。如果你这么做了，Vue 会在控制台给出警告。
-
-但是，很多组件确实是需要双向绑定，就比如一个modal组件，首先我们给外面提供show：true/false来控制显示与隐藏，组件封装好了关闭事件，这时候就有问题了，外部控制了show：true来显示，用户关闭后组件内部标识显示/隐藏的为false，但是外部的show此时依然为true，下次打开就有问题了。
 
 解决办法也是有的，参考mint-ui部分组件，如Action sheet：
 ```

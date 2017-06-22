@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    host:"http://localhost:",
+    host:"http://192.168.0.103:",
     port: 8081,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
