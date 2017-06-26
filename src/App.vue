@@ -27,6 +27,13 @@
 			:format="demo3.format"
 			@onChange="demo3DateChange">
 		</calendar>
+		<p>DEMO3：设置最小、最大可选日期</p>
+		<button @click="demo4Click">打开/关闭日期选择器</button>
+		<calendar
+			v-model="demo4.calendarShow"
+			:minDate="demo4.minDate"
+			:maxDate="demo4.maxDate">
+		</calendar>
 	</div>
 </template>
 
@@ -50,6 +57,11 @@
 					format:"yyyy年MM月dd日",
 					selectedDate:""
 				},
+				demo4 :{
+					calendarShow: false,
+					minDate:new Date(2017,5,26),
+					maxDate:new Date(2017,5,30)
+				}
 			}
 		},
 		methods: {
@@ -61,6 +73,9 @@
 			},
 			demo3Click() {
 				this.demo3.calendarShow = !this.demo3.calendarShow;
+			},
+			demo4Click() {
+				this.demo4.calendarShow = !this.demo4.calendarShow;
 			},
 			demo1DateChange(date,formatDate){
 				this.demo1.selectedDate = formatDate;
