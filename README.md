@@ -4,13 +4,12 @@
 [demo](https://lx544690189.github.io/vue-calendar/) 请使用手机扫描二维码查看
 
 <p>
-<img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/screenshot.png" width="200" float="left"/>
+<img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/screenshot.jpg" width="200" float="left"/>
 <img src="https://github.com/lx544690189/vue-calendar/blob/master/screenshot/QRcode.png" width="300" float="left"/>
 </p>
 
 - [x] ui
 - [x] 基本操作
-- [ ] 设定日期范围、设定不可选日期
 - [ ] 手势切换
 - [ ] npm
 
@@ -45,6 +44,9 @@ npm run build
 v-model | 显示/隐藏日期组件 | Boolean | false
 format | 日期格式化 | String | "yyyy-MM-dd"
 defaultDate | 默认已选日期 | Date | new Date()
+minDate | 最小可选日期 | Date | 不限制
+maxDate  | 最大可选日期 | Date | 不限制
+closeByClickmask | 允许点击遮罩层关闭日期选择器 | Boolean | true
 month | 月份文本 | Array | ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
 week | 星期文本 | Array | ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
 
@@ -56,6 +58,7 @@ onChange | 当改变所选日期 | (date,formatDate)
 
 ## 总结
 -   相关知识：node、npm、es6、Vue组件、transform、Date相关api、移动端手势操作；
+-   动画效果在低端机上可能存在掉帧，有待优化；
 -   思路：页面始终存在三个月份的模板，始终显示中间那个月的，通过transform位移来达到切换动画效果，在动画结束后重新生成模板（将当前月份置于中间）；
 -   **要点一**：每次动画执行过程，需设置计时器来判断动画是否执行完成，防止动画执行过程中的点击事件
 -   **要点二**：vue2.0强调单向数据流，来保证业务的清晰，但插件的show/hide的确需要双向绑定。其官方解释如下：
