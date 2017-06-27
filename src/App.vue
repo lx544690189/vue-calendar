@@ -4,14 +4,14 @@
 		<p class="detail">
 			当前日期：{{ demo1.selectedDate }}
 		</p>
-		<button @click="demo1Click">打开/关闭日期选择器</button>
+		<button @click="demo1Click">打开日期选择器</button>
 		<calendar
 			v-model="demo1.calendarShow"
 			:defaultDate="demo1.defaultDate"
 			@onChange="demo1DateChange">
 		</calendar>
 		<p>DEMO2：多语言-英语</p>
-		<button @click="demo2Click">打开/关闭日期选择器</button>
+		<button @click="demo2Click">打开日期选择器</button>
 		<calendar
 			v-model="demo2.calendarShow"
 			:month="demo2.month"
@@ -21,14 +21,17 @@
 		<p class="detail">
 			当前日期：{{ demo3.selectedDate }}
 		</p>
-		<button @click="demo3Click">打开/关闭日期选择器</button>
+		<button @click="demo3Click">打开日期选择器</button>
 		<calendar
 			v-model="demo3.calendarShow"
 			:format="demo3.format"
 			@onChange="demo3DateChange">
 		</calendar>
-		<p>DEMO3：设置最小、最大可选日期</p>
-		<button @click="demo4Click">打开/关闭日期选择器</button>
+		<p>DEMO4：设置最小、最大可选日期</p>
+		<p class="detail">
+			只能选择当天及以后30天内
+		</p>
+		<button @click="demo4Click">打开日期选择器</button>
 		<calendar
 			v-model="demo4.calendarShow"
 			:minDate="demo4.minDate"
@@ -59,23 +62,23 @@
 				},
 				demo4 :{
 					calendarShow: false,
-					minDate:new Date(2017,5,26),
-					maxDate:new Date(2017,5,30)
+					minDate:new Date(),
+					maxDate:new Date(new Date().getTime() + 24*60*60*1000*30)
 				}
 			}
 		},
 		methods: {
 			demo1Click() {
-				this.demo1.calendarShow = !this.demo1.calendarShow;
+				this.demo1.calendarShow = true;
 			},
 			demo2Click() {
-				this.demo2.calendarShow = !this.demo2.calendarShow;
+				this.demo2.calendarShow = true;
 			},
 			demo3Click() {
-				this.demo3.calendarShow = !this.demo3.calendarShow;
+				this.demo3.calendarShow = true;
 			},
 			demo4Click() {
-				this.demo4.calendarShow = !this.demo4.calendarShow;
+				this.demo4.calendarShow = true;
 			},
 			demo1DateChange(date,formatDate){
 				this.demo1.selectedDate = formatDate;

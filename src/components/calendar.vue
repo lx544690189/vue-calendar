@@ -328,7 +328,7 @@
 							if(0 <= today-date && today-date < 24*60*60*1000 ){
 								this.dateObj[key].allDay_list[row][col].isToday = true;
 							}
-							if(this.minDate && date - new Date(this.minDate.getFullYear(),this.minDate.getMonth(),this.minDate.getUTCDate()+1) < 0){
+							if(this.minDate && date - new Date(this.minDate.getFullYear(),this.minDate.getMonth(),this.minDate.getUTCDate()) < 0){
 								this.dateObj[key].allDay_list[row][col].invalid = true;
 							}
 							if(this.maxDate && date - new Date(this.maxDate.getFullYear(),this.maxDate.getMonth(),this.maxDate.getUTCDate()+1) > 0){
@@ -438,17 +438,6 @@
 	
 	.toolbar {
 		position: relative;
-	}
-	
-	.toolbar::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 1px;
-		background-color: #999;
-		transform: scaleY(0.5);
 	}
 	
 	.toolbar-inner {
@@ -610,6 +599,7 @@
 		width: 14.28571429%;
 		width: -webkit-calc(100% / 7);
 		width: calc(100% / 7);
+		color: black;
 	}
 	
 	.calendar-day.grey{
