@@ -269,6 +269,7 @@
 			//日期选择
 			handelDayClick(col,index,start, end){
 				if(!this.isTranslateEnd())return;
+				if(col.invalid)return;
 				this.translateTime = new Date();
 				this.open = false;
 				if(!col.selected){
