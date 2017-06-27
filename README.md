@@ -1,5 +1,4 @@
-# VUE组件-日期选择器（移动端）
-仿framework7日历控件，实现包括滑动手势来切换月份
+# VUE组件-移动端日期选择器
 
 [demo](https://lx544690189.github.io/vue-calendar/) 请使用手机扫描二维码查看
 
@@ -57,6 +56,7 @@ week | 星期文本 | Array | ["周一", "周二", "周三", "周四", "周五",
 onChange | 当改变所选日期 | (date,formatDate)
 
 ## 总结
+-   组件为仿framework7日历控件
 -   相关知识：node、npm、es6、Vue组件、transform、Date相关api、移动端手势操作；
 -   动画效果在低端机上可能存在掉帧，有待优化；
 -   思路：页面始终存在三个月份的模板，始终显示中间那个月的，通过transform位移来达到切换动画效果，在动画结束后重新生成模板（将当前月份置于中间）；
