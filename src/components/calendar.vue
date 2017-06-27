@@ -38,7 +38,7 @@
 										v-for="(col, col_index) in row"
 										@click="handelDayClick(col,col_index,dateObj.pre.start,dateObj.pre.end)"
 										:class="{'grey':row_index*7+row_index*7+col_index<dateObj.pre.start || row_index*7+col_index>dateObj.pre.end ,'selected':col.selected }">
-										<span :class="isValid(dateObj.pre.start,dateObj.pre.end,row_index,col_index,col.value)">
+										<span :class="{'today':col.isToday,'invalid':col.invalid}">
 											{{ col.value }}
 										</span>
 									</div>
@@ -51,7 +51,7 @@
 										v-for="(col, col_index) in row"
 										@click="handelDayClick(col,row_index*7+col_index,dateObj.current.start,dateObj.current.end)"
 										:class="{'grey':row_index*7+col_index<dateObj.current.start || row_index*7+col_index>dateObj.current.end ,'selected':col.selected }">
-										<span :class="isValid(dateObj.current.start,dateObj.current.end,row_index,col_index,col.value)">
+										<span :class="{'today':col.isToday,'invalid':col.invalid}">
 											{{ col.value }}
 										</span>
 									</div>
@@ -64,7 +64,7 @@
 										v-for="(col, col_index) in row"
 										@click="handelDayClick(col,row_index*7+col_index,dateObj.next.start,dateObj.next.end)"
 										:class="{'grey':row_index*7+col_index<dateObj.next.start || row_index*7+col_index>dateObj.next.end ,'selected':col.selected }">
-										<span :class="isValid(dateObj.next.start,dateObj.next.end,row_index,col_index,col.value)">
+										<span :class="{'today':col.isToday,'invalid':col.invalid}">
 											{{ col.value }}
 										</span>
 									</div>
@@ -214,33 +214,6 @@
 				}
 				return true;
 			},
-			//判断日期是否可选,并标注当天
-			isValid(start,end,row_index,col_index,day){
-				if(!this.minDate&&!this.maxDate)return null;
-				let date,
-					year = this.currentViewMonth.year,
-					month = this.currentViewMonth.month - 1,
-					today = new Date(),
-					invalid = false,
-					isToday = false;
-				if(row_index*7 + col_index < start){
-					date = new Date(month==0?year-1:year,month==0?11:month-1,day);
-				}else if(row_index*7 + col_index > end){
-					date = new Date(month==11?year+1:year,month==11?1:month+1,day);
-				}else{
-					date = new Date(year,month,day);
-				}
-				if(0 <= today-date && today-date < 24*60*60*1000 ){
-					isToday = true;
-				}
-				if(this.minDate && date - new Date(this.minDate.getFullYear(),this.minDate.getMonth(),this.minDate.getUTCDate()+1) < 0){
-					invalid = true;
-				}
-				if(this.maxDate && date - new Date(this.maxDate.getFullYear(),this.maxDate.getMonth(),this.maxDate.getUTCDate()+1) > 0){
-					invalid = true;
-				}
-				return {'invalid':invalid,'today':isToday};
-			},
 			//月份切换
 			handelMonthClick(action,translateCheck){
 				if(translateCheck&&!this.isTranslateEnd())return;
@@ -330,7 +303,7 @@
 					}
 				}
 			},
-			//设定已选日期
+			//设定已选日期,高亮当天，置灰不可选日期
 			assignSelectedDate(){
 				for(let key in this.dateObj){
 					for(let row in this.dateObj[key].allDay_list){
@@ -346,8 +319,19 @@
 								year = month==12?year + 1:year;
 								month = month==12?1:month + 1;
 							}
+							let date = new Date(year,month-1,day),
+								today = new Date();
 							if(this.selectedDate.year == year && this.selectedDate.month == month && this.selectedDate.day == day){
 								this.dateObj[key].allDay_list[row][col].selected = true;
+							}
+							if(0 <= today-date && today-date < 24*60*60*1000 ){
+								this.dateObj[key].allDay_list[row][col].isToday = true;
+							}
+							if(this.minDate && date - new Date(this.minDate.getFullYear(),this.minDate.getMonth(),this.minDate.getUTCDate()+1) < 0){
+								this.dateObj[key].allDay_list[row][col].invalid = true;
+							}
+							if(this.maxDate && date - new Date(this.maxDate.getFullYear(),this.maxDate.getMonth(),this.maxDate.getUTCDate()+1) > 0){
+								this.dateObj[key].allDay_list[row][col].invalid = true;
 							}
 						}
 					}
@@ -641,6 +625,7 @@
 	
 	.calendar-day span.invalid{
 		color: #e0e0e0;
+		cursor: not-allowed;
 	}
 	.calendar-day span.today{
 		background-color: #eeeeee;
